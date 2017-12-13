@@ -12,6 +12,16 @@ else
     BINARY=$1
 fi
 
+WHICH_PATH=`which $BINARY`
+
+# determine whether the command is actually in the
+# user's path or not ... don't try anything else
+# if not...
+if [ $? -gt 0 ]; then
+    echo command $BINARY is not in your path!
+    exit
+fi
+
 # evaluate which command we'll use. the user can set
 # the default lpath command or just use less by default.
 if [ ! $LPATH_CMD ]; then
@@ -19,4 +29,4 @@ if [ ! $LPATH_CMD ]; then
 fi
 
 # Launch!
-$LPATH_CMD `which $BINARY`
+$LPATH_CMD $WHICH_PATH
